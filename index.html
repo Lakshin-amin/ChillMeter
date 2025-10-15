@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherNow - Live Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="background-animation" id="bgAnimation"></div>
+
+    
+    <div class="container">
+        
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <span>WeatherNow</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-unit" id="unitToggle">°C</button>
+                <button class="btn-location" id="currentLocationBtn">
+                    <i class="fas fa-location-crosshairs"></i>
+                </button>
+            </div>
+        </header>
+
+        
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for a city..."
+                    autocomplete="off"
+                >
+                <button class="btn-search" id="searchBtn">Search</button>
+            </div>
+            <div class="suggestions" id="suggestions"></div>
+        </div>
+
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading weather data...</p>
+        </div>
+
+        
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p id="errorText">City not found. Please try again.</p>
+        </div>
+
+        
+        <div class="weather-card" id="weatherCard">
+            
+            <div class="location-info">
+                <h2 class="city-name" id="cityName">Mumbai</h2>
+                <p class="date-time" id="dateTime">Monday, 14 October 2024 | 2:30 PM</p>
+            </div>
+
+            
+            <div class="main-weather">
+                <div class="weather-left">
+                    <div class="temperature-display">
+                        <span class="temperature" id="temperature">28</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <p class="weather-description" id="weatherDescription">Partly Cloudy</p>
+                    <p class="feels-like">Feels like <span id="feelsLike">26°C</span></p>
+                </div>
+                <div class="weather-right">
+                    <div class="weather-icon-container">
+                        <i class="fas fa-cloud-sun weather-icon" id="weatherIcon"></i>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="weather-details">
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Max Temp</p>
+                        <p class="detail-value" id="tempMax">30°C</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-temperature-low"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Min Temp</p>
+                        <p class="detail-value" id="tempMin">24°C</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Wind Speed</p>
+                        <p class="detail-value" id="windSpeed">12 km/h</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Humidity</p>
+                        <p class="detail-value" id="humidity">65%</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Visibility</p>
+                        <p class="detail-value" id="visibility">10 km</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-label">Pressure</p>
+                        <p class="detail-value" id="pressure">1013 hPa</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="sun-times">
+                <div class="sun-item">
+                    <i class="fas fa-sunrise"></i>
+                    <div>
+                        <p class="sun-label">Sunrise</p>
+                        <p class="sun-time" id="sunrise">6:30 AM</p>
+                    </div>
+                </div>
+                <div class="sun-item">
+                    <i class="fas fa-sunset"></i>
+                    <div>
+                        <p class="sun-label">Sunset</p>
+                        <p class="sun-time" id="sunset">6:45 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="forecast-container">
+            <h3 class="forecast-title">
+                <i class="fas fa-calendar-alt"></i>
+                5-Day Forecast
+            </h3>
+            <div class="forecast-grid" id="forecastGrid">
+               
+            </div>
+        </div>
+
+        
+        <div class="recent-searches" id="recentSearchesContainer">
+            <h3 class="recent-title">
+                <i class="fas fa-history"></i>
+                Recent Searches
+            </h3>
+            <div class="recent-list" id="recentList">
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Weather updated successfully!</span>
+    </div>
+
+    
+    <footer class="footer">
+        <p>Powered by OpenWeatherMap API | Made by Lakshin Amin </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
